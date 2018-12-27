@@ -1,0 +1,22 @@
+{
+  "name": "moviedemo",
+  "version": "1.0.0",
+  "description": "super node movie app ",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "index.html",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
