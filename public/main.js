@@ -41,6 +41,113 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
+/***/ "./src/app/angular-canvas/angular-canvas.component.html":
+/*!**************************************************************!*\
+  !*** ./src/app/angular-canvas/angular-canvas.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<canvas #canvas width=\"500\" height=\"500\" id=\"canvas\">\n  </canvas>\n"
+
+/***/ }),
+
+/***/ "./src/app/angular-canvas/angular-canvas.component.scss":
+/*!**************************************************************!*\
+  !*** ./src/app/angular-canvas/angular-canvas.component.scss ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FuZ3VsYXItY2FudmFzL2FuZ3VsYXItY2FudmFzLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/angular-canvas/angular-canvas.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/angular-canvas/angular-canvas.component.ts ***!
+  \************************************************************/
+/*! exports provided: AngularCanvasComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AngularCanvasComponent", function() { return AngularCanvasComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var AngularCanvasComponent = /** @class */ (function () {
+    function AngularCanvasComponent() {
+    }
+    AngularCanvasComponent.prototype.ngOnInit = function () {
+        this.canvasRef = document.getElementById('canvas');
+        this.canvasRef.width = window.innerWidth; //document.body.clientWidth;
+        this.canvasRef.height = window.innerHeight; //document.body.clientHeight;
+        this.context = this.canvasRef.getContext('2d');
+        this.fps = 6;
+        this.fpsInterval = 1000 / this.fps;
+        //console.log(this.fpsInterval);
+        this.then = Date.now();
+        this.startTime = this.then;
+        this.stop = false;
+        this.running = true;
+        this.paint();
+    };
+    AngularCanvasComponent.prototype.ngOnDestroy = function () {
+        this.running = false;
+    };
+    AngularCanvasComponent.prototype.paint = function (loop) {
+        // console.log(this.stop);
+        // if (stop) {
+        //    return;
+        //  }
+        var _this = this;
+        if (loop === void 0) { loop = true; }
+        if (loop && this.running) {
+            requestAnimationFrame(function () { return _this.paint(loop); });
+        }
+        this.now = Date.now();
+        this.elapsed = this.now - this.then;
+        // console.log(this.elapsed);
+        if (this.elapsed > this.fpsInterval) {
+            this.then = this.now - (this.elapsed % this.fpsInterval);
+            this.particles = new Array();
+            for (var i = 0; i < 5000; i++) {
+                this.particles.push({
+                    x: Math.random() * this.canvasRef.width,
+                    y: Math.random() * this.canvasRef.height
+                });
+            }
+            this.showParticles();
+        }
+    };
+    AngularCanvasComponent.prototype.showParticles = function () {
+        //let ctx: CanvasRenderingContext2D =this.canvasRef.getContext('2d');
+        //this.canvasRef.nativeElement.getContext('2d');
+        var _this = this;
+        this.context.clearRect(0, 0, this.canvasRef.width, this.canvasRef.height);
+        this.context.beginPath();
+        this.particles.forEach(function (p) {
+            _this.context.rect(p.x, p.y, 2, 2);
+        });
+        this.context.stroke();
+    };
+    AngularCanvasComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-angular-canvas',
+            template: __webpack_require__(/*! ./angular-canvas.component.html */ "./src/app/angular-canvas/angular-canvas.component.html"),
+            styles: [__webpack_require__(/*! ./angular-canvas.component.scss */ "./src/app/angular-canvas/angular-canvas.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], AngularCanvasComponent);
+    return AngularCanvasComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/app-routing.module.ts":
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
@@ -156,6 +263,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_movieservice_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/movieservice.service */ "./src/app/services/movieservice.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _shared_material_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./shared/material.module */ "./src/app/shared/material.module.ts");
+/* harmony import */ var _dthreechart_dthreechart_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./dthreechart/dthreechart.component */ "./src/app/dthreechart/dthreechart.component.ts");
+/* harmony import */ var _angular_canvas_angular_canvas_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./angular-canvas/angular-canvas.component */ "./src/app/angular-canvas/angular-canvas.component.ts");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! angularfire2 */ "./node_modules/angularfire2/index.js");
+/* harmony import */ var angularfire2__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(angularfire2__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var _angular_fire_storage__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/fire/storage */ "./node_modules/@angular/fire/storage/index.js");
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/fire/auth */ "./node_modules/@angular/fire/auth/index.js");
+/* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ngx-mask */ "./node_modules/ngx-mask/fesm5/ngx-mask.js");
 
 
 
@@ -167,6 +282,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+var firebaseConfig = {
+    apiKey: "AIzaSyCrCMHvW14sJnwcZvdDhazs43iTx5IOPY0",
+    authDomain: "mock-a9f1c.firebaseapp.com",
+    databaseURL: "https://mock-a9f1c.firebaseio.com",
+    projectId: "mock-a9f1c",
+    storageBucket: "mock-a9f1c.appspot.com",
+    messagingSenderId: "339129684072"
+};
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -174,7 +304,9 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
-                _searchmovie_searchmovie_component__WEBPACK_IMPORTED_MODULE_7__["SearchmovieComponent"]
+                _searchmovie_searchmovie_component__WEBPACK_IMPORTED_MODULE_7__["SearchmovieComponent"],
+                _dthreechart_dthreechart_component__WEBPACK_IMPORTED_MODULE_11__["DthreechartComponent"],
+                _angular_canvas_angular_canvas_component__WEBPACK_IMPORTED_MODULE_12__["AngularCanvasComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -182,7 +314,12 @@ var AppModule = /** @class */ (function () {
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"],
                 _shared_material_module__WEBPACK_IMPORTED_MODULE_10__["MaterialModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+                angularfire2__WEBPACK_IMPORTED_MODULE_13__["AngularFireModule"].initializeApp(firebaseConfig, 'SimpleMovieDemo'),
+                _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__["AngularFirestoreModule"],
+                _angular_fire_auth__WEBPACK_IMPORTED_MODULE_16__["AngularFireAuthModule"],
+                _angular_fire_storage__WEBPACK_IMPORTED_MODULE_15__["AngularFireStorageModule"],
+                ngx_mask__WEBPACK_IMPORTED_MODULE_17__["NgxMaskModule"].forRoot({})
             ],
             providers: [_services_movieservice_service__WEBPACK_IMPORTED_MODULE_8__["MovieserviceService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
@@ -195,46 +332,45 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/searchmovie/searchmovie.component.html":
+/***/ "./src/app/dthreechart/dthreechart.component.html":
 /*!********************************************************!*\
-  !*** ./src/app/searchmovie/searchmovie.component.html ***!
+  !*** ./src/app/dthreechart/dthreechart.component.html ***!
   \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  Search Movie:<span><input type=\"text\" id=\"txtSearchMovie\" [(ngModel)]=\"title\" />\n    &nbsp;<button (click)=\"searchMovie()\" mat-button>\n        <mat-icon>face</mat-icon>\n      Search!\n    </button>\n  </span>\n</div>\n<div>\n   <ul>\n       <li *ngFor=\"let movie of _movies\">\n           <span>{{movie.title}}</span>\n           &nbsp;\n           <span>{{movie.plot}}</span>\n           &nbsp;\n           <span>{{movie.director}}</span>\n           &nbsp;\n           <span>{{movie.actors}}</span>\n           &nbsp;\n           <span><img [src]='movie.poster'  /></span>\n       </li>\n   </ul>\n</div>\n<svg width=\"900\" height=\"500\"></svg>\n\n"
+module.exports = "<svg width=\"900\" height=\"500\"></svg>\n"
 
 /***/ }),
 
-/***/ "./src/app/searchmovie/searchmovie.component.scss":
+/***/ "./src/app/dthreechart/dthreechart.component.scss":
 /*!********************************************************!*\
-  !*** ./src/app/searchmovie/searchmovie.component.scss ***!
+  !*** ./src/app/dthreechart/dthreechart.component.scss ***!
   \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlYXJjaG1vdmllL3NlYXJjaG1vdmllLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2R0aHJlZWNoYXJ0L2R0aHJlZWNoYXJ0LmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
-/***/ "./src/app/searchmovie/searchmovie.component.ts":
+/***/ "./src/app/dthreechart/dthreechart.component.ts":
 /*!******************************************************!*\
-  !*** ./src/app/searchmovie/searchmovie.component.ts ***!
+  !*** ./src/app/dthreechart/dthreechart.component.ts ***!
   \******************************************************/
-/*! exports provided: SearchmovieComponent */
+/*! exports provided: DthreechartComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchmovieComponent", function() { return SearchmovieComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DthreechartComponent", function() { return DthreechartComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_movieservice_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/movieservice.service */ "./src/app/services/movieservice.service.ts");
-/* harmony import */ var d3_selection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! d3-selection */ "./node_modules/d3-selection/src/index.js");
-/* harmony import */ var d3_scale__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! d3-scale */ "./node_modules/d3-scale/src/index.js");
-/* harmony import */ var d3_shape__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! d3-shape */ "./node_modules/d3-shape/src/index.js");
-/* harmony import */ var d3_array__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! d3-array */ "./node_modules/d3-array/src/index.js");
-/* harmony import */ var d3_axis__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! d3-axis */ "./node_modules/d3-axis/src/index.js");
+/* harmony import */ var d3_selection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! d3-selection */ "./node_modules/d3-selection/src/index.js");
+/* harmony import */ var d3_scale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! d3-scale */ "./node_modules/d3-scale/src/index.js");
+/* harmony import */ var d3_shape__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! d3-shape */ "./node_modules/d3-shape/src/index.js");
+/* harmony import */ var d3_array__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! d3-array */ "./node_modules/d3-array/src/index.js");
+/* harmony import */ var d3_axis__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! d3-axis */ "./node_modules/d3-axis/src/index.js");
 
 
 
@@ -242,10 +378,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-var SearchmovieComponent = /** @class */ (function () {
-    function SearchmovieComponent(movieSvc) {
-        this.movieSvc = movieSvc;
+var DthreechartComponent = /** @class */ (function () {
+    function DthreechartComponent() {
         this.title = 'Line Chart';
         this.data = [
             { date: new Date('2010-01-01'), value: 80 },
@@ -262,43 +396,34 @@ var SearchmovieComponent = /** @class */ (function () {
         this.width = 960 - this.margin.left - this.margin.right;
         this.height = 500 - this.margin.top - this.margin.bottom;
     }
-    SearchmovieComponent.prototype.ngOnInit = function () {
-        this._movies = new Array();
+    DthreechartComponent.prototype.ngOnInit = function () {
         this.buildSvg();
         this.addXandYAxis();
         this.drawLineAndPath();
     };
-    SearchmovieComponent.prototype.searchMovie = function () {
-        var _this = this;
-        console.log(this.title);
-        this.movieSvc.GetMovie(this.title).subscribe(function (movie) {
-            console.log(movie);
-            _this._movies.push(movie);
-        });
-    };
-    SearchmovieComponent.prototype.buildSvg = function () {
-        this.svg = d3_selection__WEBPACK_IMPORTED_MODULE_3__["select"]('svg')
+    DthreechartComponent.prototype.buildSvg = function () {
+        this.svg = d3_selection__WEBPACK_IMPORTED_MODULE_2__["select"]('svg')
             .append('g')
             .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
     };
-    SearchmovieComponent.prototype.addXandYAxis = function () {
+    DthreechartComponent.prototype.addXandYAxis = function () {
         // range of data configuring
-        this.x = d3_scale__WEBPACK_IMPORTED_MODULE_4__["scaleTime"]().range([0, this.width]);
-        this.y = d3_scale__WEBPACK_IMPORTED_MODULE_4__["scaleLinear"]().range([this.height, 0]);
-        this.x.domain(d3_array__WEBPACK_IMPORTED_MODULE_6__["extent"](this.data, function (d) { return d.date; }));
-        this.y.domain(d3_array__WEBPACK_IMPORTED_MODULE_6__["extent"](this.data, function (d) { return d.value; }));
+        this.x = d3_scale__WEBPACK_IMPORTED_MODULE_3__["scaleTime"]().range([0, this.width]);
+        this.y = d3_scale__WEBPACK_IMPORTED_MODULE_3__["scaleLinear"]().range([this.height, 0]);
+        this.x.domain(d3_array__WEBPACK_IMPORTED_MODULE_5__["extent"](this.data, function (d) { return d.date; }));
+        this.y.domain(d3_array__WEBPACK_IMPORTED_MODULE_5__["extent"](this.data, function (d) { return d.value; }));
         // Configure the Y Axis
         this.svg.append('g')
             .attr('transform', 'translate(0,' + this.height + ')')
-            .call(d3_axis__WEBPACK_IMPORTED_MODULE_7__["axisBottom"](this.x));
+            .call(d3_axis__WEBPACK_IMPORTED_MODULE_6__["axisBottom"](this.x));
         // Configure the Y Axis
         this.svg.append('g')
             .attr('class', 'axis axis--y')
-            .call(d3_axis__WEBPACK_IMPORTED_MODULE_7__["axisLeft"](this.y));
+            .call(d3_axis__WEBPACK_IMPORTED_MODULE_6__["axisLeft"](this.y));
     };
-    SearchmovieComponent.prototype.drawLineAndPath = function () {
+    DthreechartComponent.prototype.drawLineAndPath = function () {
         var _this = this;
-        this.line = d3_shape__WEBPACK_IMPORTED_MODULE_5__["line"]()
+        this.line = d3_shape__WEBPACK_IMPORTED_MODULE_4__["line"]()
             .x(function (d) { return _this.x(d.date); })
             .y(function (d) { return _this.y(d.value); });
         // Configuring line path
@@ -307,13 +432,119 @@ var SearchmovieComponent = /** @class */ (function () {
             .attr('class', 'line')
             .attr('d', this.line);
     };
+    DthreechartComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-dthreechart',
+            template: __webpack_require__(/*! ./dthreechart.component.html */ "./src/app/dthreechart/dthreechart.component.html"),
+            styles: [__webpack_require__(/*! ./dthreechart.component.scss */ "./src/app/dthreechart/dthreechart.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], DthreechartComponent);
+    return DthreechartComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/searchmovie/searchmovie.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/searchmovie/searchmovie.component.html ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!--\n<div>\n  Search Movie:<span><input type=\"text\" id=\"txtSearchMovie\" [(ngModel)]=\"title\" />\n    &nbsp;<button (click)=\"searchMovie()\" mat-button>\n        <mat-icon>face</mat-icon>\n      Search!\n    </button>\n  </span>\n</div>\n<div>\n  Phone: <input type='text' [(ngModel)] = \"phoneVal\" mask='(000) 000-0000' (blur)=\"onBlurValidate($event.target.value,'\\\\([0-9]{3}\\\\)\\\\s+[0-9]{3}\\\\-[0-9]{3}', 'zipCodeErr')\" >\n</div>\n<div *ngIf=\"showTable\">\n<table mat-table [dataSource]=\"dataSource\" class=\"mat-elevation-z8\">\n\n    \n  \n    \n\n    <ng-container matColumnDef=\"title\">\n      <th mat-header-cell *matHeaderCellDef > Title </th>\n      <td mat-cell *matCellDef=\"let movie\"> {{movie.title}} </td>\n    </ng-container>\n  \n   \n    <ng-container matColumnDef=\"plot\">\n      <th mat-header-cell *matHeaderCellDef > Plot </th>\n      <td mat-cell *matCellDef=\"let movie\"> {{movie.plot}} </td>\n    </ng-container>\n  \n   \n    <ng-container matColumnDef=\"director\">\n      <th mat-header-cell *matHeaderCellDef > Director </th>\n      <td mat-cell *matCellDef=\"let movie\"> {{ movie.director}} </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"actors\">\n        <th mat-header-cell *matHeaderCellDef > Actors </th>\n        <td mat-cell *matCellDef=\"let movie\"> {{movie.actors}} </td>\n      </ng-container>\n\n      <ng-container matColumnDef=\"poster\">\n          <th mat-header-cell *matHeaderCellDef > Poster </th>\n          <td mat-cell *matCellDef=\"let movie\"> <img [src]='movie.poster'  /> </td>\n        </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n</div>-->\n<!--\n<div>\n   <ul>\n       <li *ngFor=\"let movie of _movies\">\n           <span>{{movie.title}}</span>\n           &nbsp;\n           <span>{{movie.plot}}</span>\n           &nbsp;\n           <span>{{movie.director}}</span>\n           &nbsp;\n           <span>{{movie.actors}}</span>\n           &nbsp;\n           <span><img [src]='movie.poster'  /></span>\n       </li>\n   </ul>\n</div>\n-->\n<app-angular-canvas></app-angular-canvas>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/searchmovie/searchmovie.component.scss":
+/*!********************************************************!*\
+  !*** ./src/app/searchmovie/searchmovie.component.scss ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "table {\n  width: 100%; }\n\n.mat-form-field {\n  font-size: 14px;\n  width: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VhcmNobW92aWUvQzpcXHByb2plY3RzXFxtb3ZpZWRlbW8vc3JjXFxhcHBcXHNlYXJjaG1vdmllXFxzZWFyY2htb3ZpZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFlBQVcsRUFDWjs7QUFFRDtFQUNFLGdCQUFlO0VBQ2YsWUFBVyxFQUNaIiwiZmlsZSI6InNyYy9hcHAvc2VhcmNobW92aWUvc2VhcmNobW92aWUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0YWJsZSB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICB9XHJcbiAgXHJcbiAgLm1hdC1mb3JtLWZpZWxkIHtcclxuICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gIH0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/searchmovie/searchmovie.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/searchmovie/searchmovie.component.ts ***!
+  \******************************************************/
+/*! exports provided: SearchmovieComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchmovieComponent", function() { return SearchmovieComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_movieservice_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/movieservice.service */ "./src/app/services/movieservice.service.ts");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+
+
+
+
+var SearchmovieComponent = /** @class */ (function () {
+    function SearchmovieComponent(movieSvc, firestore) {
+        /* db.collection("MockExercises").add({
+           calories:2,
+           duration: 60,
+           name:"walking"
+         });*/
+        /*this.temp = db.collection("Temp").valueChanges();
+        this.temp.subscribe( t => {
+            console.log(t);
+        })*/
+        this.movieSvc = movieSvc;
+        this.firestore = firestore;
+        this.title = '';
+        this.displayedColumns = ['title', 'plot', 'director', 'actors', 'poster'];
+    }
+    SearchmovieComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._movies = new Array();
+        this.dataSource = this._movies;
+        this.showTable = false;
+        this.firestore.collection('MockExercises').snapshotChanges().subscribe(function (data) {
+            _this.exercises = data.map(function (e) {
+                return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, e.payload.doc.data());
+            });
+        });
+        var phone = "3051021234";
+        this.phoneVal = "3051021234";
+        var newPhone = "(" + phone.substring(0, 3) + ")" + phone.substring(3, 6) + '-' + phone.substring(6, phone.length);
+        console.log(newPhone);
+    };
+    SearchmovieComponent.prototype.searchMovie = function () {
+        var _this = this;
+        this.showTable = false;
+        console.log(this.phoneVal);
+        console.log(this.exercises);
+        this.movieSvc.GetMovie(this.title).subscribe(function (movie) {
+            console.log(movie);
+            _this._movies.push(movie);
+            _this.showTable = true;
+        });
+    };
+    SearchmovieComponent.prototype.onBlurValidate = function (val, chkVal, errorMsgId) {
+        var regExpr = new RegExp(chkVal);
+        if (regExpr.test(val)) {
+            console.log(chkVal, val, 'Valid Phone');
+        }
+        else {
+            console.log(chkVal, val, 'Not Valid Phone');
+        }
+    };
     SearchmovieComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-searchmovie',
             template: __webpack_require__(/*! ./searchmovie.component.html */ "./src/app/searchmovie/searchmovie.component.html"),
             styles: [__webpack_require__(/*! ./searchmovie.component.scss */ "./src/app/searchmovie/searchmovie.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_movieservice_service__WEBPACK_IMPORTED_MODULE_2__["MovieserviceService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_movieservice_service__WEBPACK_IMPORTED_MODULE_2__["MovieserviceService"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__["AngularFirestore"]])
     ], SearchmovieComponent);
     return SearchmovieComponent;
 }());
