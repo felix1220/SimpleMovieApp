@@ -82,7 +82,9 @@ var AngularCanvasComponent = /** @class */ (function () {
     }
     AngularCanvasComponent.prototype.ngOnInit = function () {
         this.canvasRef = document.getElementById('canvas');
-        this.canvasRef.width = window.innerWidth; //document.body.clientWidth;
+        var width = window.innerHeight * (window.innerWidth / window.innerHeight); //document.body.clientWidth;
+        //debugger;
+        this.canvasRef.width = width;
         this.canvasRef.height = window.innerHeight; //document.body.clientHeight;
         this.context = this.canvasRef.getContext('2d');
         this.fps = 6;
